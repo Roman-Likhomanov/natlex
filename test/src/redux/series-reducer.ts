@@ -46,13 +46,8 @@ export const seriesReducer = (state: Array<SeriesType> = initialState, action: A
             return [action.serie, ...state]
         }
         case 'CHANGE-SERIE': {
-            const serie = state.find(s => s.name === action.name)
-            if (serie) {
-                serie.name = action.changeName
-                serie.color = action.changeColor
-                serie.dashStyle = action.changeStyleLine
-            }
-            return [...state]
+            return state.map(s => s.name === action.name ? {...s, name: action.changeName,
+                color: action.changeColor, dashStyle: action.changeStyleLine} : s)
         }
         case 'REMOVE-SERIE': {
             return state.filter(s => s.name !== action.name)
